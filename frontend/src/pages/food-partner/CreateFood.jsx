@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import axios from "axios"
+// import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import API from "../../api/api";
 const CreateFood = () => {
   const { register, handleSubmit, reset } = useForm();
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -27,7 +28,7 @@ const CreateFood = () => {
     formData.append('description' , data.description)
     formData.append('video', selectedFile)
 
-    const response = await axios.post("http://localhost:3000/api/food/" , formData ,{
+    const response = await API.post("/food" , formData ,{
       withCredentials:true,
        headers: {
           "Content-Type": "multipart/form-data", // ✅ important for multer

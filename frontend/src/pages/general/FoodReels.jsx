@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import VideoCard from "./VideoCard";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
+  import API from "../../api/api";
 
 export default function FoodReels() {
   const [videos, setVideos] = useState([]);
@@ -9,14 +10,13 @@ export default function FoodReels() {
   const containerRef = useRef(null);
   const videoRefs = useRef(new Map());
   const [playingId, setPlayingId] = useState(null);
-
   const navigate = useNavigate();
 
   // Fetch all food reels
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/food", {
+        const res = await API.get("/food", {
           withCredentials: true,
         });
         setVideos(res.data.foodItems);
@@ -24,7 +24,7 @@ export default function FoodReels() {
         console.error(err);
         if (err.response?.status === 401) {
           alert("Please login first!");
-          navigate("/login"); // redirect to login page
+          navigate("/user/login"); // redirect to login page
         }
       } finally {
         setLoading(false);
@@ -92,22 +92,24 @@ export default function FoodReels() {
         ref={containerRef}
         className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
       >
-      {videos
-        .filter(item => item.foodPartner)
-        .map((item) => (
-  <section key={item._id} className="h-screen w-full snap-start flex items-center justify-center relative">
-    <VideoCard
-      id={item._id}
-      src={item.video}
-      name={item.name}
-      description={item.description}
-      foodPartner={item.foodPartner?._id || null} // <-- safe
-      setVideoRef={setVideoRef}
-      isPlaying={String(playingId) === String(item._id)}
-    />
-  </section>
-))}
-
+        {videos
+          .filter((item) => item.foodPartner)
+          .map((item) => (
+            <section
+              key={item._id}
+              className="h-screen w-full snap-start flex items-center justify-center relative"
+            >
+              <VideoCard
+                id={item._id}
+                src={item.video}
+                name={item.name}
+                description={item.description}
+                foodPartner={item.foodPartner?._id || null} // <-- safe
+                setVideoRef={setVideoRef}
+                isPlaying={String(playingId) === String(item._id)}
+              />
+            </section>
+          ))}
       </div>
     </div>
   );

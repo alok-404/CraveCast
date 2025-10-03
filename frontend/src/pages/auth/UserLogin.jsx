@@ -1,8 +1,9 @@
+// src/pages/LoginPage.jsx
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import API from "../../api/api"; // your axios instance with baseURL and withCredentials
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -11,12 +12,13 @@ const LoginPage = () => {
 
   const LoginHandler = async (data) => {
     try {
+      // Use API instance instead of hardcoded URLs
       const endpoint =
         loginType === "food-partner"
-          ? "http://localhost:3000/api/auth/food-partner/login"
-          : "http://localhost:3000/api/auth/user/login";
+          ? "/auth/food-partner/login"
+          : "/auth/user/login";
 
-      const response = await axios.post(endpoint, data, { withCredentials: true });
+      const response = await API.post(endpoint, data); // sends cookies automatically
 
       toast.success("Login successful! 🎉");
       reset();
@@ -28,6 +30,7 @@ const LoginPage = () => {
         navigate("/");
       }
     } catch (error) {
+      console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong!");
     }
   };
@@ -114,7 +117,7 @@ const LoginPage = () => {
             </div>
 
             <div className="text-center text-sm">
-              Don’t have account?{" "}
+              Don’t have an account?{" "}
               <Link to="/user/register" className="text-[#80D8C3] font-bold hover:underline">
                 Sign Up
               </Link>

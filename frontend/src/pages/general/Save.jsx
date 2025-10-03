@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import API from "../../api/api";
 const Save = () => {
   const [savedReels, setSavedReels] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,9 +9,11 @@ const Save = () => {
   useEffect(() => {
     const fetchSavedReels = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/food/user/saved-reels", {
-          withCredentials: true,
-        });
+        const API_URL =
+          "https://cravecast.onrender.com/api/food/user/saved-reels";
+
+        const res = await axios.get(API_URL, { withCredentials: true });
+
         setSavedReels(res.data.savedReels);
         setLoading(false);
       } catch (err) {

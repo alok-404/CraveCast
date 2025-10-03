@@ -85,7 +85,13 @@ async function loginUser(req, res) {
   });
 
   //set cookie
-  res.cookie("token", token);
+  res.cookie("token", token, {
+  httpOnly: true,           // prevents client-side JS access
+  secure: true,             // must be HTTPS in prod
+  sameSite: "none",         // allows cross-site cookies
+  maxAge: 24*60*60*1000     // 1 day
+});
+
 
   res.status(200).json({
     message: "User Logged In Successfully",
@@ -197,7 +203,13 @@ async function registerFoodPartner(req, res) {
 
   // JWT token (old logic)
   const token = jwt.sign({ id: foodPartner._id }, process.env.JWT_SECRET);
-  res.cookie("token", token);
+  res.cookie("token", token, {
+  httpOnly: true,           // prevents client-side JS access
+  secure: true,             // must be HTTPS in prod
+  sameSite: "none",         // allows cross-site cookies
+  maxAge: 24*60*60*1000     // 1 day
+});
+
 
   // Response (old logic unchanged)
   res.status(201).json({
@@ -238,7 +250,13 @@ async function loginFoodPartner(req,res){
   });
 
   //set cookie
-  res.cookie("token", token);
+ res.cookie("token", token, {
+  httpOnly: true,           // prevents client-side JS access
+  secure: true,             // must be HTTPS in prod
+  sameSite: "none",         // allows cross-site cookies
+  maxAge: 24*60*60*1000     // 1 day
+});
+
 
 res.status(200).json({
   message: "Food Partner Logged In Successfully",
