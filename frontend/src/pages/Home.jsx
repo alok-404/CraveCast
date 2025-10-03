@@ -9,9 +9,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
 
-
   useEffect(() => {
-    API.get('/api/food-partner')
+    API.get('/food-partner')
       .then(res => {
         setRestaurants(res.data.partners);
         setLoading(false);
