@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import { toast } from "react-toastify";
+import API from "../../api/api";
 
 const FoodPartnerLogin = () => {
   const navigate = useNavigate();
@@ -13,8 +14,8 @@ const FoodPartnerLogin = () => {
     try {
       console.log("Submitted User:", FoodPartner);
 
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/food-partner/login",
+      const response = await API.post(
+        "/auth/food-partner/login",
         FoodPartner,
         { withCredentials: true }
       );

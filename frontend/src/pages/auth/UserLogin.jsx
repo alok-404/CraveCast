@@ -21,10 +21,14 @@ const LoginPage = () => {
       const response = await API.post(endpoint, data); // sends cookies automatically
 
       toast.success("Login successful! 🎉");
+       window.location.href = "/"; 
       reset();
 
       // Redirect
       if (loginType === "food-partner") {
+        toast.success("Login successful! 🎉");
+       window.location.href = "/"; 
+
         navigate("/create-food");
       } else {
         navigate("/");

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import {
   HeartIcon as HeartOutline,
   ChatBubbleOvalLeftIcon as CommentOutline,
@@ -12,6 +12,7 @@ import {
   HeartIcon as HeartSolid,
   BookmarkIcon as SaveSolid,
 } from "@heroicons/react/24/solid";
+import API from "../../api/api";
 
 export default function VideoCard({
   id,
@@ -42,8 +43,8 @@ export default function VideoCard({
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:3000/api/food/${id}/status`,
+        const res = await API.get(
+          `/food/${id}/status`,
           {
             withCredentials: true,
           }
@@ -90,8 +91,8 @@ export default function VideoCard({
     setLiked(nextLiked);
     setLikeCount((prev) => (nextLiked ? prev + 1 : Math.max(prev - 1, 0)));
     try {
-      await axios.post(
-        `http://localhost:3000/api/food/${id}/like`,
+      await API.post(
+        `/food/${id}/like`,
         {},
         { withCredentials: true }
       );
@@ -108,8 +109,8 @@ export default function VideoCard({
     setSaved(nextSaved);
     setSaveCount((prev) => (nextSaved ? prev + 1 : Math.max(prev - 1, 0)));
     try {
-      await axios.post(
-        `http://localhost:3000/api/food/${id}/save`,
+      await API.post(
+        `/food/${id}/save`,
         {},
         { withCredentials: true }
       );
@@ -123,8 +124,8 @@ export default function VideoCard({
   // Fetch comments
   const fetchComments = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3000/api/food/${id}/comments`,
+      const res = await API.get(
+        `/food/${id}/comments`,
         {
           withCredentials: true,
         }
@@ -141,8 +142,8 @@ export default function VideoCard({
   const addComment = async () => {
     if (!newComment.trim()) return;
     try {
-      const res = await axios.post(
-        `http://localhost:3000/api/food/${id}/comment`,
+      const res = await API.post(
+        `/food/${id}/comment`,
         { text: newComment },
         { withCredentials: true }
       );
@@ -157,8 +158,8 @@ export default function VideoCard({
   // Delete comment
   const deleteComment = async (commentId) => {
     try {
-      await axios.delete(
-        `http://localhost:3000/api/food/${id}/comment/${commentId}`,
+      await API.delete(
+        `/food/${id}/comment/${commentId}`,
         {
           withCredentials: true,
         }
@@ -176,7 +177,7 @@ export default function VideoCard({
 
   return (
     <div
-      className="relative h-screen w-full flex items-center justify-center bg-black"
+      className="relative font-[font1] h-screen w-full flex items-center justify-center bg-black"
       onClick={onTap}
     >
       <video
@@ -191,23 +192,23 @@ export default function VideoCard({
       />
 
       {/* Overlay content */}
-      <div className="absolute inset-0 flex justify-between items-end p-4">
-        <div className="text-white max-w-[70%] mb-16">
-          <div className="font-bold mb-2">{name}</div>
-          <div className="text-sm leading-snug">{description}</div>
+      <div className="absolute inset-0 flex gap-3 justify-between items-end p-4">
+        <div className="text-white max-w-[70%] mb-15">
+          <div className="font-bold mb-2 uppercase"><span className="font-[font2] font-extrabold">🍴Item : </span>{name}</div>
+          <div className="text-sm leading-snug"> <span className="font-[font2] font-extrabold uppercase">📜Caption: </span>{description}</div>
           <button
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/food-partner/${foodPartner}`);
             }}
-            className="text-sm mt-2 px-3 py-1 rounded bg-blue-500 text-white font-semibold"
+            className="text-sm mt-2 px-3 py-1 rounded bg-red-700 font-[font1] text-white font-semibold"
           >
-            Visit store
+            Visit Restaurant
           </button>
         </div>
 
         {/* Right buttons */}
-        <div className="flex flex-col gap-6 items-center mr-2 pointer-events-auto mb-20">
+        <div className="flex flex-col gap-6 items-center mr-2 pointer-events-auto mb-15">
           <div className="flex flex-col items-center">
             <button
               onClick={(e) => {
@@ -296,7 +297,7 @@ export default function VideoCard({
                       <b>
                         {c.user
                           ? `${c.user.fullName.firstName} ${c.user.fullName.lastName}`
-                          : "Anonymous"}
+                          : "You"}
                         :
                       </b>{" "}
                       {c.text}

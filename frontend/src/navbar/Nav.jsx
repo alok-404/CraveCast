@@ -2,55 +2,64 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Individual Navigation Item Component
+// Tailwind Colors: 'brand-primary' is assumed to be a modern red/orange, e.g., #FF5733
+const PRIMARY_COLOR = '#FF5733'; // Using a hex for explicit styling
+
+// Individual Navigation Item Component (Refined)
 const NavItem = ({ name, icon, isActive, onClick }) => {
   return (
     <button 
       onClick={onClick} 
-      className={`relative flex flex-col items-center justify-center p-1 sm:p-2 rounded-full 
-                  transition-colors duration-200 ease-in-out focus:outline-none
-                  ${isActive ? 'text-white' : 'text-gray-400'}`}
+      className={`relative flex flex-col items-center justify-center h-14 w-1/5 min-w-0 transition-all duration-300 ease-in-out focus:outline-none`}
+      style={{ color: isActive ? PRIMARY_COLOR : 'rgb(156 163 175)' /* Gray-400 */ }}
     >
-      {/* Active dot indicator */}
-      {isActive && (
-        <span className="absolute -top-1 right-1/2 translate-x-1/2 w-2 h-2 bg-red-600 rounded-full"></span>
-      )}
       
-      {/* Icon and Background */}
-      <div className={`text-xl ${isActive ? 'bg-[#fe5200] p-2 rounded-full' : ''}`}>
-          {icon}
+      {/* Icon Area */}
+      <div 
+        className={`text-2xl transition-all duration-300 ${isActive ? 'scale-110' : ''}`}
+        // The icon itself is the only visible element, no background
+      >
+        {icon}
       </div>
       
-      {/* Text Label: Hidden by default on small screens, shown on 'sm' and up */}
-      <span className={`hidden sm:block text-black text-xs mt-1 ${isActive ? 'font-semibold' : ''}`}>
+      {/* Text Label: Always visible, but smaller on small screens */}
+      <span className={`text-xs mt-1 transition-all duration-300 ${isActive ? 'font-bold' : 'font-medium'}`}>
         {name}
       </span>
+
+      {/* Active Bar Indicator (Instead of a dot) */}
+      {isActive && (
+        <div 
+            className="absolute top-0 w-8 h-1 rounded-b-full transition-all duration-300"
+            style={{ backgroundColor: PRIMARY_COLOR }}
+        ></div>
+      )}
     </button>
   );
 };
 
 const Nav = () => {
-
-    const navigate = useNavigate("")
-
-  const [activeItem, setActiveItem] = useState('notifications'); 
-
- const navItems = [
+    const navigate = useNavigate();
+  // Changed default to 'home' to match the visible UI and likely landing page
+  const [activeItem, setActiveItem] = useState('home'); 
+  
+  const navItems = [
     { name: 'Home', icon: '🏠', path: '/' },
     { name: 'Reels', icon: '🎬', path: '/Reels' },
     { name: 'Save', icon: '🔖', path: '/user/saved-reels' },
-    { name: 'Notifications', icon: '🔔', path: '/notifications' },
+    { name: 'Notifications', icon: '🔔', path: '/notification' },
     { name: 'Profile', icon: '👤', path: 'user/profile' },
   ]
-
+  
   const handleNavClick = (name,path) => {
-      setActiveItem(name.toLowerCase());
+      const lowerName = name.toLowerCase();
+      setActiveItem(lowerName);
       navigate(path);
   }
-
+  
   return (
-    // Max-width is now applied from 'sm' breakpoint for better behavior on wide screens
-    <nav className="relative flex justify-around items-center w-full sm:max-w-lg sm:mx-auto  bg-white rounded-t-lg sm:rounded-full py-2 shadow-lg mb-0 sm:mb-4">
+    // Full width, fixed bottom, strong white background, deep shadow.
+    <nav className="flex justify-around items-center w-full h-16 bg-white shadow-2xl">
       {navItems.map((item) => (
         <NavItem 
           key={item.name} 

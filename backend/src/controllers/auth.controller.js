@@ -104,7 +104,12 @@ async function loginUser(req, res) {
 }
 
 async function logoutUser(req, res) {
-  res.clearCookie("token");
+res.clearCookie("token", {
+  httpOnly: true,
+  secure: true,       // agar production HTTPS hai
+  sameSite: "None",
+});
+
   res.status(200).json({
     message: "User logged out successfully",
   });
@@ -277,7 +282,12 @@ res.status(200).json({
 
 
 async function logoutFoodPartner(req,res){
-  res.clearCookie("token");
+res.clearCookie("token", {
+  httpOnly: true,
+  secure: true,       // agar production HTTPS hai
+  sameSite: "None",
+});
+
   res.status(200).json({
     message:"Food partner logged out successfully"
   })

@@ -1,8 +1,9 @@
 import React from 'react'
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
-import axios from 'axios';
+
 import { useNavigate } from 'react-router-dom';
+import API from '../../api/api';
 
 
 const FoodPartnerRegister = () => {
@@ -13,7 +14,7 @@ const FoodPartnerRegister = () => {
 
   try {
     console.log("RegisterFoodPartner:" , FoodPartner);
-    const response = await axios.post("http://localhost:3000/api/auth/food-partner/register" , FoodPartner , {
+    const response = await API.post("/auth/food-partner/register" , FoodPartner , {
       withCredentials:true
     })
         

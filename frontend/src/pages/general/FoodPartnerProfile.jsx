@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import API from "../../api/api";
 
 const FoodPartnerProfile = () => {
   const [partner, setPartner] = useState(null);
@@ -11,8 +12,8 @@ const FoodPartnerProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:3000/api/auth/food-partner/profile",
+        const res = await API.get(
+          "/auth/food-partner/profile",
           { withCredentials: true }
         );
         setPartner(res.data.foodPartner);
@@ -30,7 +31,7 @@ const FoodPartnerProfile = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/auth/food-partner/logout", {
+      await API.get("/auth/food-partner/logout", {
         withCredentials: true,
       });
       toast.success("Logged out successfully");

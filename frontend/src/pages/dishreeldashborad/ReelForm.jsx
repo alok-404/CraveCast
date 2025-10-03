@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import axios from "axios";
+import API from "../../api/api";
+
 
 const ReelForm = () => {
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ const ReelForm = () => {
     formData.append("video", video); // URL from ImageKit or upload here
 
     try {
-      await axios.post("http://localhost:3000/api/food/", formData, { withCredentials: true });
+      await API.post("h/food/", formData, { withCredentials: true });
 
       alert("Reel uploaded successfully!");
     } catch (err) {

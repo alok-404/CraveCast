@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import API from "../api/api";
 
 const PrivateRoute = ({ children, type = "user" }) => {
   const [auth, setAuth] = useState(null);
@@ -11,12 +12,12 @@ const PrivateRoute = ({ children, type = "user" }) => {
       try {
         const url =
           type === "food-partner"
-            ? "http://localhost:3000/api/auth/food-partner/profile"
-            : "http://localhost:3000/api/auth/user/profile";
+            ? "/auth/food-partner/profile"
+            : "/auth/user/profile";
 
       console.log("URL being called:", url);
 
-        const res = await axios.get(url, { withCredentials: true });
+        const res = await API.get(url, { withCredentials: true });
         setAuth(res.data); // ya res.data.user / res.data.foodPartner
         setLoading(false);
       } catch (err) {

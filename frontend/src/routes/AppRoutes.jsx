@@ -13,6 +13,7 @@ import UserProfile from "../pages/general/UserProfile";
 import PrivateRoute from "./PrivateRoute";
 import Save from "../pages/general/Save";
 import FoodPartnerProfile from "../pages/general/FoodPartnerProfile";
+import Notification from "../pages/general/Notification";
 
 const AppRoutes = () => {
   return (
@@ -32,6 +33,8 @@ const AppRoutes = () => {
         <Route path="/food-partner/:id" element={<Profile />} />
 
         <Route path="/create-dish" element={<CreateDish />} />
+        
+        <Route path="/notification" element={<Notification />} />
 
 
         <Route path="/user/saved-reels" element={<Save />} />

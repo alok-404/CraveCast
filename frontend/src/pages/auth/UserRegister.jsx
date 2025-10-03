@@ -1,8 +1,9 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import axios from "axios"
+
 import { useNavigate } from 'react-router-dom';
+import API from '../../api/api';
 
 const UserRegister = () => {
   
@@ -14,8 +15,8 @@ const UserRegister = () => {
     try {
       console.log("RegisterUser:", user);
 
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/user/register",
+      const response = await API.post(
+        "/auth/user/register",
         user,{
           withCredentials: true
         }
