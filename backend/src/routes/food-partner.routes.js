@@ -7,7 +7,7 @@ const router = express.Router();
 /* GET /api/food-partner/ [protected] This is for our normal user to get the list of restaurants for the home page */
 router.get(
     "/",
-    authMiddleware.authUserMiddleware, // User authenticated hona chahiye
+    // authMiddleware.authUserMiddleware, // User authenticated hona chahiye
     foodPartnerController.getFoodPartners // Naya controller function
 );
 

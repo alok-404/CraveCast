@@ -31,7 +31,7 @@ const LoginModal = () => {
     ref={modalRef}
       className="h-90 w-90">
         <div className=" h-1/2 ">
-          <img src="/public/Bear Clipart Cartoon.jpg" alt="" />
+          <img src="/Bear Clipart Cartoon.jpg" alt="" />
         </div>
 
         <div className="flex flex-col items-center p-6 rounded-lg shadow-lg ">

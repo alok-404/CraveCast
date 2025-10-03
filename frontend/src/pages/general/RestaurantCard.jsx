@@ -57,7 +57,7 @@ const RestaurantCard = ({ restaurant }) => {
     <div className="bg-white rounded-xl shadow-lg overflow-hidden">
       <img
         onClick={() => navigate(`/food-partner/${restaurant._id}`)}
-        src={restaurant.coverImage || "/default-food.jpg"}
+        src={restaurant.coverImage || "/chad-montano-MqT0asuoIcU-unsplash.jpg"}
         alt={restaurant.businessName || "Restaurant"}
         className="cursor-pointer w-full h-48 object-cover"
       />
