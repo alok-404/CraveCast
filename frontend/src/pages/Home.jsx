@@ -11,7 +11,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    API.get('/food-partner')
+    API.get('/api/food-partner')
       .then(res => {
         setRestaurants(res.data.partners);
         setLoading(false);
