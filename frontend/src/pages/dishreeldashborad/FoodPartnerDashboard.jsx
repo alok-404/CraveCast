@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DishForm from "./DishForm"; // Form for creating a dish
+import DishForm from "./CreateDish"; // Form for creating a dish
 import ReelForm from "./ReelForm"; // Form for uploading reel
 
 const FoodPartnerDashboard = () => {

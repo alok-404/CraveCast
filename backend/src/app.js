@@ -14,7 +14,11 @@ const app = express(); //create server
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin:"http://localhost:5173",
+      origin: [
+    "http://localhost:5173",    // local dev
+    "https://crave-cast.vercel.app" // your Vercel frontend
+  ],
+
     credentials:true
 }))
 
